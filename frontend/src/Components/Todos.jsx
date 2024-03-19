@@ -31,6 +31,8 @@ function AddTodo() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault(); 
+
     const newTodo = {
       id: todos.length + 1,
       item: item,
@@ -40,7 +42,11 @@ function AddTodo() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newTodo),
-    }).then(fetchTodos);
+    })
+      .then(fetchTodos)
+      .then(() => {
+        setItem("");
+      });
   };
 
   return (
@@ -52,6 +58,7 @@ function AddTodo() {
           placeholder="Add a todo item"
           aria-label="Add a todo item"
           onChange={handleInput}
+          value={item}
         />
       </InputGroup>
     </form>
